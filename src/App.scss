@@ -1,13 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600");
-$appbar-bg-color: #023e8a;
-$board-bg-color: #0077b6;
-$appbar-bg-card: #eaedee;
-$grey-opacity-bg: rgba(255, 255, 255, 0.3);
-
-$gap: 10px;
-$height-header: 46px;
-$height-footer: 46px;
-
+@import "./setting";
+@import "./components/AppBar/AppBar";
+@import "./components/AppBoard/AppBoard.scss";
+@import "./components/AppContent/AppContent.scss";
+@import "./components/Column/Column.scss";
 * {
   margin: 0;
 }
@@ -20,90 +15,4 @@ html {
   display: grid;
   grid-template-rows: 40px 50px 1fr;
   background: $board-bg-color;
-  .navbar {
-    padding-left: $gap;
-    display: flex;
-    align-items: center;
-    &.app {
-      background: $appbar-bg-color;
-      font-size: 3rem;
-    }
-    &.board {
-      font-size: 3rem;
-    }
-  }
-  .board-columns {
-    display: flex;
-    overflow-x: auto;
-    margin: 0 $gap $gap;
-
-    &::-webkit-scrollbar {
-      -webkit-appearance: none;
-    }
-    &::-webkit-scrollbar:horizontal {
-      height: 11px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: $grey-opacity-bg;
-      border-radius: 4px;
-    }
-    &-item {
-      flex: 0 0 auto;
-      width: 300px;
-      height: calc(100% - #{$gap});
-      &:not(:first-child) {
-        margin-left: $gap;
-      }
-      > * {
-        background: $appbar-bg-card;
-        color: black;
-        padding: 0 8px;
-      }
-      .header {
-        padding-left: 15px;
-        height: $height-header;
-        line-height: $height-header;
-        font-size: 1.6rem;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-      }
-      .footer {
-        padding-left: 15px;
-        height: $height-footer;
-        line-height: $height-footer;
-        font-size: 1.6rem;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-      }
-      ul {
-        list-style: none;
-        max-height: calc(100% - #{$height-footer} - #{$height-header});
-        overflow-y: auto;
-        &::-webkit-scrollbar {
-          -webkit-appearance: none;
-        }
-        &::-webkit-scrollbar:vertical {
-          width: 11px;
-        }
-        &::-webkit-scrollbar-thumb {
-          background: darken($appbar-bg-card, 10);
-          border-right: 5px solid $appbar-bg-card;
-        }
-        li {
-          background: red;
-          padding: $gap;
-          border-radius: 4px;
-          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-          &:not(:last-child) {
-            margin-bottom: $gap;
-          }
-          img {
-            display: block;
-            width: calc(100% + 2 * #{$gap});
-            margin: -10px -10px 0 -10px;
-          }
-        }
-      }
-    }
-  }
 }
