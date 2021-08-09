@@ -1,12 +1,12 @@
-import Task from "components/Task/Task";
-import React from "react";
+import Task from 'components/Task/Task';
+import React from 'react';
 
-const Column = () => {
+const Column = ({ column }) => {
   return (
-    <div className="column">
-      <div className="column-header">Duy An</div>
-      <ul className="column-list">
-        <Task/>
+    <div className='column'>
+      <div className='column-header'>{column.title}</div>
+      <ul className='column-list'>
+        <Task />
         <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
         <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
         <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
@@ -16,7 +16,7 @@ const Column = () => {
         <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
         <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
       </ul>
-      <div className="column-footer">Duy An</div>
+      <div className='column-footer'>Duy An</div>
     </div>
   );
 };
