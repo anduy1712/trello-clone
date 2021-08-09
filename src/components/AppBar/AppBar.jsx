@@ -1,5 +1,5 @@
-import React from "react";
- const AppBar = () => {
+import React from 'react';
+const AppBar = () => {
   return <nav className="navbar-app">navbar</nav>;
 };
 
