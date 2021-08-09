@@ -1,18 +1,18 @@
-@import "./setting";
-@import "./components/AppBar/AppBar";
-@import "./components/AppBoard/AppBoard.scss";
-@import "./components/AppContent/AppContent.scss";
-@import "./components/Column/Column.scss";
+@import './setting';
+@import './components/AppBar/AppBar';
+@import './components/AppBoard/AppBoard.scss';
+@import './components/AppContent/AppContent.scss';
+@import './components/Column/Column.scss';
+@import './components/Card/Card.scss';
+
 * {
   margin: 0;
 }
 html {
   font-size: 62.5%;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 .App {
   height: 100vh;
-  display: grid;
-  grid-template-rows: 40px 50px 1fr;
   background: $board-bg-color;
 }

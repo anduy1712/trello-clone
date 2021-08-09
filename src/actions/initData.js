@@ -8,35 +8,65 @@ export const initData = {
           id: 'column-1',
           boardId: 'board-1',
           title: 'Title of column 1',
-          cardOrder: ['card-1', 'card-2', 'card-3'],
+          cardOrder: [
+            'card-1',
+            'card-2',
+            'card-3',
+            'card-4',
+            'card-5',
+            'card-6',
+            'card-7'
+          ],
           cards: [
             {
               id: 'card-1',
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 1',
-              over: null
+              cover:
+                'https://kenh14cdn.com/thumb_w/620/203336854389633024/2021/8/7/06-16283046456521086662298.jpeg'
             },
             {
               id: 'card-2',
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 2',
-              over: null
+              cover: null
             },
             {
               id: 'card-3',
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 3',
-              over: null
+              cover: null
             },
             {
               id: 'card-4',
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 4',
-              over: null
+              cover: null
+            },
+            {
+              id: 'card-5',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 5',
+              cover: null
+            },
+            {
+              id: 'card-6',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 6',
+              cover: null
+            },
+            {
+              id: 'card-7',
+              boardId: 'board-1',
+              columnId: 'column-1',
+              title: 'Title of card 7',
+              cover: null
             }
           ]
         },
@@ -51,28 +81,21 @@ export const initData = {
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 1',
-              over: null
+              cover: null
             },
             {
               id: 'card-2',
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 2',
-              over: null
+              cover: null
             },
             {
               id: 'card-3',
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 3',
-              over: null
-            },
-            {
-              id: 'card-4',
-              boardId: 'board-1',
-              columnId: 'column-1',
-              title: 'Title of card 4',
-              over: null
+              cover: null
             }
           ]
         },
@@ -87,28 +110,21 @@ export const initData = {
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 1',
-              over: null
+              cover: null
             },
             {
               id: 'card-2',
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 2',
-              over: null
+              cover: null
             },
             {
               id: 'card-3',
               boardId: 'board-1',
               columnId: 'column-1',
               title: 'Title of card 3',
-              over: null
-            },
-            {
-              id: 'card-4',
-              boardId: 'board-1',
-              columnId: 'column-1',
-              title: 'Title of card 4',
-              over: null
+              cover: null
             }
           ]
         }
