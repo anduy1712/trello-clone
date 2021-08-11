@@ -11,7 +11,7 @@
     color: black;
     padding: 0 8px;
   }
-  .column-header {
+  &-header {
     padding-left: 15px;
     height: $height-header;
     line-height: $height-header;
@@ -20,7 +20,7 @@
     border-top-right-radius: 5px;
     cursor: pointer;
   }
-  .column-footer {
+  &-footer {
     padding-left: 15px;
     height: $height-footer;
     line-height: $height-footer;
@@ -28,7 +28,7 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-  .column-list {
+  &-list {
     list-style: none;
     max-height: calc(#{$column-height} - #{$height-footer} - #{$height-header});
     overflow-y: auto;
@@ -54,6 +54,16 @@
       background-color: rgba(150, 150, 200, 0.1);
       border: 1px dashed #abc;
       margin: 5px;
+    }
+  }
+  &-footer {
+    .footer-actions {
+      margin-left: 8px;
+      color: #888;
+      cursor: pointer;
+      &:hover {
+        color: #333;
+      }
     }
   }
 }
