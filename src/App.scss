@@ -1,10 +1,10 @@
+@import '~bootstrap/scss/bootstrap';
 @import './setting';
 @import './components/AppBar/AppBar';
 @import './components/AppBoard/AppBoard.scss';
 @import './components/AppContent/AppContent.scss';
 @import './components/Column/Column.scss';
 @import './components/Card/Card.scss';
-
 * {
   margin: 0;
 }
@@ -16,7 +16,7 @@ html {
   height: 100vh;
   background: $board-bg-color;
   .icon {
-    font-size:14px;
-    margin-right:3px;
+    font-size: 14px;
+    margin-right: 3px;
   }
 }

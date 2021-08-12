@@ -5,10 +5,20 @@ import { isEmpty } from 'lodash';
 import { mapOrder } from 'utilities/sort';
 import { Container, Draggable } from 'react-smooth-dnd';
 import { applyDrag } from 'utilities/drapDrop';
+import {
+  Col,
+  Row,
+  Container as BootStrapContainer,
+  Form,
+  Button
+} from 'react-bootstrap';
+import { useRef } from 'react';
 const AppContent = () => {
   const [board, setBoard] = useState();
   const [columns, setColumn] = useState();
-
+  const [addCol, setAddCol] = useState(false);
+  const [columTitle, setColumTitle] = useState('');
+  const columnRef = useRef(null);
   useEffect(() => {
     const data = initData.boards.find((item) => item.id === 'board-1');
     if (data) {
@@ -18,6 +28,11 @@ const AppContent = () => {
       setColumn(data.columns);
     }
   }, []);
+  useEffect(() => {
+    if (columnRef && columnRef.current) {
+      columnRef.current.focus();
+    }
+  }, [addCol]);
   if (isEmpty(board)) {
     return <div>Data is found</div>;
   }
@@ -47,6 +62,31 @@ const AppContent = () => {
       setColumn(newColumn);
     }
   };
+  //Toggle column
+  const toggleColumn = () => {
+    setAddCol(!addCol);
+  };
+  const handleSubmitColumn = () => {
+    if (!columTitle) {
+      columnRef.current.focus();
+      return;
+    }
+    const newColumn = {
+      id: Math.random().toString(32).substr(2, 5),
+      boardId: board.id,
+      title: columTitle,
+      cardOrder: [],
+      cards: []
+    };
+    const columnCurrent = [...columns];
+    const boardCurrent = board;
+    columnCurrent.push(newColumn);
+    boardCurrent.columnOrder = columnCurrent.map((item) => item.id);
+    boardCurrent.columns = columnCurrent.map((item) => item);
+    setColumn(columnCurrent);
+    setBoard(boardCurrent);
+    setColumTitle('');
+  };
   return (
     <div className="board-columns">
       <Container
@@ -68,9 +108,42 @@ const AppContent = () => {
           );
         })}
       </Container>
-      <div className="columns-add">
+
+      <BootStrapContainer className="container-bs">
+        {!addCol && (
+          <Row onClick={toggleColumn}>
+            <Col className="columns-add">
+              {' '}
+              <i className="fa fa-plus icon" /> Add Column
+            </Col>
+          </Row>
+        )}
+        {addCol && (
+          <Row>
+            <Col className="columns-new">
+              <Form.Control
+                size="sm"
+                type="text"
+                placeholder="Enter column title..."
+                className="columns-new__input"
+                ref={columnRef}
+                value={columTitle}
+                onChange={(e) => setColumTitle(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSubmitColumn()}
+              />
+              <Button variant="success" onClick={handleSubmitColumn}>
+                Success
+              </Button>{' '}
+              <span className="columns-new__icon ">
+                <i className="fa fa-trash icon" onClick={toggleColumn} />
+              </span>
+            </Col>
+          </Row>
+        )}
+      </BootStrapContainer>
+      {/* <div className="columns-add">
         <i className="fa fa-plus icon" /> Add Column
-      </div>
+      </div> */}
     </div>
   );
 };
