@@ -3,7 +3,10 @@
   display: flex;
   overflow-x: auto;
   overflow-y: hidden;
-  // margin: 0 $gap $gap;
+  &::after {
+    content: '';
+    flex: 0 0 $gap;
+  }
 
   &::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -22,7 +25,7 @@
   }
   .columns-add {
     width: 300px;
-    height: 32px;
+    max-width: 250px;
     line-height: 32px;
     margin-left: $gap;
     font-size: 1.5rem;
@@ -33,6 +36,44 @@
     border-radius: 5px;
     &:hover {
       background-color: hsla(0, 0, 100%, 0.34);
+    }
+  }
+  .columns-new {
+    background: $appbar-bg-card;
+    width: 300px;
+    max-width: 250px;
+    line-height: 32px;
+    padding: 4px 10px;
+    margin-left: $gap;
+    border-radius: 5px;
+    textarea:focus,
+    textarea.form-control:focus,
+    input.form-control:focus,
+    input[type='text']:focus,
+    input[type='password']:focus,
+    input[type='email']:focus,
+    input[type='number']:focus,
+    [type='text'].form-control:focus,
+    [type='password'].form-control:focus,
+    [type='email'].form-control:focus,
+    [type='tel'].form-control:focus,
+    [contenteditable].form-control:focus {
+      box-shadow: none;
+    }
+    &__input {
+      font-size: 1.4rem;
+      margin: 5px 0;
+    }
+    &__icon {
+      margin-left: $gap;
+      cursor: pointer;
+      i {
+        font-size: 1.8rem;
+        color: #ee5523;
+        &:hover {
+          color: darken(#ee5523, 10);
+        }
+      }
     }
   }
 }
