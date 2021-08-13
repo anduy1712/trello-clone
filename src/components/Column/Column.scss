@@ -12,13 +12,41 @@
     padding: 0 8px;
   }
   &-header {
-    padding-left: 15px;
+    padding: 5px 8px;
     height: $height-header;
     line-height: $height-header;
     font-size: 1.6rem;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     cursor: pointer;
+    display: flex;
+    &__title {
+      flex: 90%;
+    }
+    &__dropdown {
+      flex: 10%;
+      .dropdown-btn {
+        margin-left: 4px;
+        height: 32px;
+        margin-top: -15px;
+        padding: 0 $gap;
+        font-size: 1.6rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        background-color: $appbar-bg-card;
+        border-color: $appbar-bg-card;
+
+        &::after {
+          content: '...';
+          border: none;
+          vertical-align: 1.255em;
+        }
+        &:hover {
+          background: darken($appbar-bg-card, 10);
+          border-color: darken($appbar-bg-card, 10);
+        }
+      }
+    }
   }
   &-footer {
     padding-left: 15px;

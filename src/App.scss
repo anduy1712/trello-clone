@@ -20,3 +20,14 @@ html {
     margin-right: 3px;
   }
 }
+
+.input-edit__header {
+  font-size: inherit;
+  margin: 5px 0;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  &:focus {
+    background: white;
+  }
+}

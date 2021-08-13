@@ -66,6 +66,7 @@ const AppContent = () => {
   const toggleColumn = () => {
     setAddCol(!addCol);
   };
+  //Add Column
   const handleSubmitColumn = () => {
     if (!columTitle) {
       columnRef.current.focus();
@@ -87,6 +88,27 @@ const AppContent = () => {
     setBoard(boardCurrent);
     setColumTitle('');
   };
+  //Update Column
+  const handleUpdateColumn = (obj) => {
+    const idObj = obj.id;
+    //copy data from state
+    const data = [...columns];
+    //get id
+    const idColumn = data.findIndex((i) => i.id === idObj);
+    //handle edit or remove
+    if (obj._destroy) {
+      //remove
+      data.splice(idColumn, 1);
+    } else {
+      //edit
+      data.splice(idColumn, 1, obj);
+    }
+    const boardCurrent = board;
+    boardCurrent.columnOrder = data.map((item) => item.id);
+    boardCurrent.columns = data.map((item) => item);
+    setColumn(data);
+    setBoard(boardCurrent);
+  };
   return (
     <div className="board-columns">
       <Container
@@ -103,7 +125,11 @@ const AppContent = () => {
         {columns.map((item, index) => {
           return (
             <Draggable key={index}>
-              <Column column={item} onCardDrop={onCardDrop} />
+              <Column
+                column={item}
+                onCardDrop={onCardDrop}
+                updateColumn={handleUpdateColumn}
+              />
             </Draggable>
           );
         })}
