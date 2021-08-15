@@ -16,9 +16,14 @@ import { useRef } from 'react';
 const AppContent = () => {
   const [board, setBoard] = useState();
   const [columns, setColumn] = useState();
-  const [addCol, setAddCol] = useState(false);
   const [columTitle, setColumTitle] = useState('');
   const columnRef = useRef(null);
+  const [addCol, setAddCol] = useState(false);
+
+  //Toggle column
+  const toggleColumn = () => {
+    setAddCol(!addCol);
+  };
   useEffect(() => {
     const data = initData.boards.find((item) => item.id === 'board-1');
     if (data) {
@@ -62,10 +67,7 @@ const AppContent = () => {
       setColumn(newColumn);
     }
   };
-  //Toggle column
-  const toggleColumn = () => {
-    setAddCol(!addCol);
-  };
+
   //Add Column
   const handleSubmitColumn = () => {
     if (!columTitle) {
@@ -109,6 +111,27 @@ const AppContent = () => {
     setColumn(data);
     setBoard(boardCurrent);
   };
+  //Add cart
+  const handleUpdateCard = (obj) => {
+    const idObj = obj.id;
+    //copy data from state
+    const data = [...columns];
+    //get id
+    const idColumn = data.findIndex((i) => i.id === idObj);
+    //handle edit or remove
+    if (obj._destroy) {
+      //remove
+      // data.splice(idColumn, 1);
+    } else {
+      //edit
+      data.splice(idColumn, 1, obj);
+    }
+    const boardCurrent = board;
+    boardCurrent.columnOrder = data.map((item) => item.id);
+    boardCurrent.columns = data.map((item) => item);
+    setColumn(data);
+    setBoard(boardCurrent);
+  };
   return (
     <div className="board-columns">
       <Container
@@ -129,6 +152,7 @@ const AppContent = () => {
                 column={item}
                 onCardDrop={onCardDrop}
                 updateColumn={handleUpdateColumn}
+                handleAddCard={handleUpdateCard}
               />
             </Draggable>
           );
@@ -160,7 +184,7 @@ const AppContent = () => {
               <Button variant="success" onClick={handleSubmitColumn}>
                 Success
               </Button>{' '}
-              <span className="columns-new__icon ">
+              <span className="cancel-icon">
                 <i className="fa fa-trash icon" onClick={toggleColumn} />
               </span>
             </Col>

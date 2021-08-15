@@ -19,6 +19,17 @@ html {
     font-size: 14px;
     margin-right: 3px;
   }
+  span.cancel-icon {
+    margin-left: $gap;
+    cursor: pointer;
+    i {
+      font-size: 1.8rem;
+      color: #ee5523;
+      &:hover {
+        color: darken(#ee5523, 10);
+      }
+    }
+  }
 }
 
 .input-edit__header {

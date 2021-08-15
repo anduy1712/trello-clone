@@ -79,21 +79,21 @@ export const initData = {
             {
               id: 'card-1',
               boardId: 'board-1',
-              columnId: 'column-1',
+              columnId: 'column-2',
               title: 'Title of card 1',
               cover: null
             },
             {
               id: 'card-2',
               boardId: 'board-1',
-              columnId: 'column-1',
+              columnId: 'column-2',
               title: 'Title of card 2',
               cover: null
             },
             {
               id: 'card-3',
               boardId: 'board-1',
-              columnId: 'column-1',
+              columnId: 'column-2',
               title: 'Title of card 3',
               cover: null
             }
@@ -108,21 +108,21 @@ export const initData = {
             {
               id: 'card-1',
               boardId: 'board-1',
-              columnId: 'column-1',
+              columnId: 'column-3',
               title: 'Title of card 1',
               cover: null
             },
             {
               id: 'card-2',
               boardId: 'board-1',
-              columnId: 'column-1',
+              columnId: 'column-3',
               title: 'Title of card 2',
               cover: null
             },
             {
               id: 'card-3',
               boardId: 'board-1',
-              columnId: 'column-1',
+              columnId: 'column-3',
               title: 'Title of card 3',
               cover: null
             }
