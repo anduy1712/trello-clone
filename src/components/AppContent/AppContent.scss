@@ -64,16 +64,5 @@
       font-size: 1.4rem;
       margin: 5px 0;
     }
-    &__icon {
-      margin-left: $gap;
-      cursor: pointer;
-      i {
-        font-size: 1.8rem;
-        color: #ee5523;
-        &:hover {
-          color: darken(#ee5523, 10);
-        }
-      }
-    }
   }
 }

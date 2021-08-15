@@ -6,13 +6,21 @@ import { Dropdown } from 'react-bootstrap';
 import ConfimModal from 'components/Common/ConfimModal';
 import { useState } from 'react';
 import { MODAL_ACTION_OPEN } from 'utilities/constants';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { useEffect } from 'react';
-const Column = ({ column, onCardDrop, updateColumn }) => {
+import { useRef } from 'react';
+const Column = ({ column, onCardDrop, updateColumn, handleAddCard }) => {
   const cards = mapOrder(column.cards, column.cardOrder, 'id');
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState('');
+  const [cardContent, setcardContent] = useState('');
 
+  const [addCard, setAddCard] = useState(false);
+  const cardRef = useRef(null);
+  //Toggle column
+  const toggleColumn = () => {
+    setAddCard(!addCard);
+  };
   const inputEnter = (e) => {
     if (e.key === 'Enter') {
       e.target.blur();
@@ -52,9 +60,33 @@ const Column = ({ column, onCardDrop, updateColumn }) => {
   const selectAllText = (e) => {
     e.target.select();
   };
+  //Submit Card content
+  const handleSubmitCard = () => {
+    if (!cardContent) {
+      cardRef.current.focus();
+      return;
+    }
+    const newCard = {
+      id: Math.random().toString(32).substr(2, 5),
+      boardId: column.boardId,
+      columnId: column.id,
+      title: cardContent.trim(),
+      cover: null
+    };
+    column.cards.push(newCard);
+    column.cardOrder = column.cards.map((item) => item.id);
+    handleAddCard(column);
+    setTitle('');
+    toggleColumn();
+  };
   useEffect(() => {
     setTitle(column.title);
   }, [column.title]);
+  useEffect(() => {
+    if (cardRef && cardRef.current) {
+      cardRef.current.focus();
+    }
+  }, [addCard]);
   return (
     <div className="column">
       <div className="column-header column-drag-handle">
@@ -113,8 +145,37 @@ const Column = ({ column, onCardDrop, updateColumn }) => {
             );
           })}
         </Container>
+        {addCard && (
+          <div className="add-card">
+            <Form.Control
+              size="sm"
+              as="textarea"
+              rows="3"
+              placeholder="Enter column title..."
+              className="columns-new__input"
+              ref={cardRef}
+              value={cardContent}
+              onChange={(e) => setcardContent(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSubmitCard()}
+            />
+            <Button onClick={handleSubmitCard} variant="success">
+              Success
+            </Button>
+            <span className="cancel-icon">
+              <i className="fa fa-trash icon" onClick={toggleColumn} />
+            </span>
+          </div>
+        )}
       </div>
-      <div className="column-footer"></div>
+      {!addCard && (
+        <div className="column-footer">
+          <div className="footer-actions" onClick={toggleColumn}>
+            <i className="fa fa-plus icon" />
+            Cat footer
+          </div>
+        </div>
+      )}
+
       <ConfimModal
         show={showModal}
         onAction={onConFirmModal}
