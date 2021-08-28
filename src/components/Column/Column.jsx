@@ -10,7 +10,7 @@ import { Form, Button } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 const Column = ({ column, onCardDrop, updateColumn, handleAddCard }) => {
-  const cards = mapOrder(column.cards, column.cardOrder, 'id');
+  const cards = mapOrder(column.cards, column.cardOrder, '_id');
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState('');
   const [cardContent, setcardContent] = useState('');
@@ -69,12 +69,12 @@ const Column = ({ column, onCardDrop, updateColumn, handleAddCard }) => {
     const newCard = {
       id: Math.random().toString(32).substr(2, 5),
       boardId: column.boardId,
-      columnId: column.id,
+      columnId: column._id,
       title: cardContent.trim(),
       cover: null
     };
     column.cards.push(newCard);
-    column.cardOrder = column.cards.map((item) => item.id);
+    column.cardOrder = column.cards.map((item) => item._id);
     handleAddCard(column);
     setTitle('');
     toggleColumn();
@@ -126,7 +126,7 @@ const Column = ({ column, onCardDrop, updateColumn, handleAddCard }) => {
       <div className="column-list">
         <Container
           groupName="col"
-          onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
+          onDrop={(dropResult) => onCardDrop(column._id, dropResult)}
           getChildPayload={(index) => cards[index]}
           dragClass="card-ghost"
           dropClass="card-ghost-drop"
