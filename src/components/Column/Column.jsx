@@ -9,7 +9,8 @@ import { MODAL_ACTION_OPEN } from 'utilities/constants';
 import { Form, Button } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-const Column = ({ column, onCardDrop, updateColumn, handleAddCard }) => {
+import { createNewCard, updateColumn } from 'actions/getapis';
+const Column = ({ column, onCardDrop, updateColumnState, handleAddCard }) => {
   const cards = mapOrder(column.cards, column.cardOrder, '_id');
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState('');
@@ -26,21 +27,33 @@ const Column = ({ column, onCardDrop, updateColumn, handleAddCard }) => {
       e.target.blur();
     }
   };
-  //On Blur Title
+  //Update Column
   const handleTitleBlur = (e) => {
     const newColumn = {
       ...column,
       title
     };
-    updateColumn(newColumn);
+    if (title !== column.title) {
+      //Call api
+      updateColumn(newColumn._id, newColumn).then((updated) => {
+        //Get cards
+        updated.cards = newColumn.cards;
+        updateColumnState(updated);
+      });
+    }
   };
-  //Delete Column
+  //Delete Columnvb
   const deleteColumn = () => {
     const newColumn = {
       ...column,
       _destroy: true
     };
-    updateColumn(newColumn);
+    //Call api
+    updateColumn(newColumn._id, newColumn).then((updated) => {
+      //Get cards
+      updated.cards = newColumn.cards;
+      updateColumnState(updated);
+    });
   };
   //On Change Title
   const handleTitleChange = (e) => {
@@ -67,17 +80,18 @@ const Column = ({ column, onCardDrop, updateColumn, handleAddCard }) => {
       return;
     }
     const newCard = {
-      id: Math.random().toString(32).substr(2, 5),
       boardId: column.boardId,
       columnId: column._id,
-      title: cardContent.trim(),
-      cover: null
+      title: cardContent.trim()
     };
-    column.cards.push(newCard);
-    column.cardOrder = column.cards.map((item) => item._id);
-    handleAddCard(column);
-    setTitle('');
-    toggleColumn();
+    //Call Api
+    createNewCard(newCard).then((card) => {
+      column.cards.push(card);
+      column.cardOrder = column.cards.map((item) => item._id);
+      handleAddCard(column);
+      setTitle('');
+      toggleColumn();
+    });
   };
   useEffect(() => {
     setTitle(column.title);
