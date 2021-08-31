@@ -12,7 +12,7 @@ import {
   Button
 } from 'react-bootstrap';
 import { useRef } from 'react';
-import { getFullBoards } from 'actions/getapis';
+import { getFullBoards, createNewColumn } from 'actions/getapis';
 const AppContent = () => {
   const [board, setBoard] = useState();
   const [columns, setColumn] = useState();
@@ -73,20 +73,22 @@ const AppContent = () => {
       return;
     }
     const newColumn = {
-      id: Math.random().toString(32).substr(2, 5),
       boardId: board._id,
-      title: columTitle,
-      cardOrder: [],
-      cards: []
+      title: columTitle
     };
-    const columnCurrent = [...columns];
-    const boardCurrent = board;
-    columnCurrent.push(newColumn);
-    boardCurrent.columnOrder = columnCurrent.map((item) => item._id);
-    boardCurrent.columns = columnCurrent.map((item) => item);
-    setColumn(columnCurrent);
-    setBoard(boardCurrent);
-    setColumTitle('');
+    //Call Api
+    createNewColumn(newColumn).then((column) => {
+      const columnCurrent = [...columns];
+      const boardCurrent = board;
+
+      columnCurrent.push(column);
+      boardCurrent.columnOrder = columnCurrent.map((item) => item._id);
+      boardCurrent.columns = columnCurrent.map((item) => item);
+
+      setColumn(columnCurrent);
+      setBoard(boardCurrent);
+      setColumTitle('');
+    });
   };
   //Update Column
   const handleUpdateColumn = (obj) => {
@@ -152,7 +154,7 @@ const AppContent = () => {
               <Column
                 column={item}
                 onCardDrop={onCardDrop}
-                updateColumn={handleUpdateColumn}
+                updateColumnState={handleUpdateColumn}
                 handleAddCard={handleUpdateCard}
               />
             </Draggable>
