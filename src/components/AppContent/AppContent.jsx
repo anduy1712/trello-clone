@@ -1,6 +1,6 @@
 import Column from 'components/Column/Column';
 import React, { useEffect, useState } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, cloneDeep } from 'lodash';
 import { mapOrder } from 'utilities/sort';
 import { Container, Draggable } from 'react-smooth-dnd';
 import { applyDrag } from 'utilities/drapDrop';
@@ -12,7 +12,13 @@ import {
   Button
 } from 'react-bootstrap';
 import { useRef } from 'react';
-import { getFullBoards, createNewColumn } from 'actions/getapis';
+import {
+  getFullBoards,
+  createNewColumn,
+  updateBoard,
+  updateColumn,
+  updateCard
+} from 'actions/getapis';
 const AppContent = () => {
   const [board, setBoard] = useState();
   const [columns, setColumn] = useState();
@@ -38,11 +44,12 @@ const AppContent = () => {
       columnRef.current.focus();
     }
   }, [addCol]);
-
+  //Drop Column
   const onColumnDrop = (dropResult) => {
+    console.log(dropResult);
     //Get data from state
-    let newColumns = [...columns];
-    let newBoard = board;
+    let newColumns = cloneDeep(columns);
+    let newBoard = cloneDeep(board);
     //Sort Array
     newColumns = applyDrag(newColumns, dropResult);
     newBoard.columnOrder = newColumns.map((c) => c._id);
@@ -50,12 +57,19 @@ const AppContent = () => {
     //Set State
     setColumn(newColumns);
     setBoard(newBoard);
+    //Call api update ColumnOrder in Board
+    updateBoard(newBoard._id, newBoard).catch(() => {
+      //Set State When API error
+      setColumn(columns);
+      setBoard(board);
+    });
   };
+  //Drop Card
   //Loop depend Column
   const onCardDrop = (id, dropResult) => {
     if (dropResult.addedIndex !== null || dropResult.removedIndex !== null) {
       //Copy data from state
-      let newColumn = [...columns];
+      let newColumn = cloneDeep(columns);
       //Get Current Column From Column
       let currentColumn = newColumn.find((item) => item._id === id);
       //Sort Card Order, Cards by Drop
@@ -63,6 +77,24 @@ const AppContent = () => {
       currentColumn.cardOrder = currentColumn.cards.map((item) => item._id);
       // Set New Column
       setColumn(newColumn);
+      if (dropResult.addedIndex !== null && dropResult.removedIndex !== null) {
+        /**
+         * Call Api to update columnOrder in column
+         */
+        updateColumn(currentColumn._id, currentColumn);
+      } else {
+        /**
+         * 1 Call Api to update columnOrder in column (2 Api to call)
+         */
+        updateColumn(currentColumn._id, currentColumn);
+        if (dropResult.addedIndex !== null) {
+          const currentCard = cloneDeep(dropResult.payload);
+          currentCard.columnId = currentColumn._id;
+          //2 Call Api to update columnId in column
+          console.log(currentCard._id, currentCard);
+          updateCard(currentCard._id, currentCard);
+        }
+      }
     }
   };
 
@@ -111,7 +143,7 @@ const AppContent = () => {
     setColumn(data);
     setBoard(boardCurrent);
   };
-  //Add cart
+  //Add card
   const handleUpdateCard = (obj) => {
     const idObj = obj._id;
     //copy data from state
