@@ -19,7 +19,7 @@ const Column = ({ column, onCardDrop, updateColumnState, handleAddCard }) => {
   const [addCard, setAddCard] = useState(false);
   const cardRef = useRef(null);
   //Toggle column
-  const toggleColumn = () => {
+  const toggleCard = () => {
     setAddCard(!addCard);
   };
   const inputEnter = (e) => {
@@ -73,7 +73,7 @@ const Column = ({ column, onCardDrop, updateColumnState, handleAddCard }) => {
   const selectAllText = (e) => {
     e.target.select();
   };
-  //Submit Card content
+  //Add Card content
   const handleSubmitCard = () => {
     if (!cardContent) {
       cardRef.current.focus();
@@ -89,8 +89,8 @@ const Column = ({ column, onCardDrop, updateColumnState, handleAddCard }) => {
       column.cards.push(card);
       column.cardOrder = column.cards.map((item) => item._id);
       handleAddCard(column);
-      setTitle('');
-      toggleColumn();
+      setcardContent('');
+      toggleCard();
     });
   };
   useEffect(() => {
@@ -176,16 +176,16 @@ const Column = ({ column, onCardDrop, updateColumnState, handleAddCard }) => {
               Success
             </Button>
             <span className="cancel-icon">
-              <i className="fa fa-trash icon" onClick={toggleColumn} />
+              <i className="fa fa-trash icon" onClick={toggleCard} />
             </span>
           </div>
         )}
       </div>
       {!addCard && (
         <div className="column-footer">
-          <div className="footer-actions" onClick={toggleColumn}>
+          <div className="footer-actions" onClick={toggleCard}>
             <i className="fa fa-plus icon" />
-            Cat footer
+            Add Card Item
           </div>
         </div>
       )}

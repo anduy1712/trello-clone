@@ -5,4 +5,72 @@
   align-items: center;
   background: $appbar-bg-color;
   font-size: 3rem;
+  .container-fluid,
+  .row,
+  .col {
+    height: 100%;
+  }
+  .list-nav {
+    &.right {
+      justify-content: flex-end;
+    }
+    display: flex;
+    height: 100%;
+    list-style: none;
+    padding: 0;
+    // justify-content: space-between;
+    .nav-item {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 14px;
+      background: rgba(244, 244, 244, 0.3);
+      margin: 4px 2px;
+      padding: 10px;
+      border-radius: 2px;
+      &:hover {
+        cursor: pointer;
+        filter: brightness(90%);
+      }
+      input {
+        outline: none;
+        border: none;
+        background: transparent;
+        color: white;
+
+        &::placeholder {
+          color: white;
+        }
+      }
+      &__icon {
+        font-size: 18px;
+        + span {
+          margin-left: 6px;
+        }
+      }
+    }
+    .nav-item-acc {
+      display: flex;
+      align-items: center;
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        padding: 4px 2px;
+        vertical-align: unset;
+      }
+    }
+  }
+  .logo_bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    img {
+      height: 60%;
+      vertical-align: unset;
+    }
+  }
 }
