@@ -1,3 +1,7 @@
+FRONTEND: https://trello-clone-d3e38.web.app/
+BACKEND: https://api-trello-clone.herokuapp.com/ 
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
