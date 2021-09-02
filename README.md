@@ -1,6 +1,5 @@
-FRONTEND: https://trello-clone-d3e38.web.app/
-BACKEND: https://api-trello-clone.herokuapp.com/ 
-
+# FRONTEND: https://trello-clone-d3e38.web.app/
+# BACKEND: https://api-trello-clone.herokuapp.com/ 
 
 # Getting Started with Create React App
 
